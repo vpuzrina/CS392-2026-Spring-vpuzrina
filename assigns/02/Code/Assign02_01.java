@@ -7,7 +7,14 @@ public class Assign02_01 {
       is expected return the correct answer instantly. Note that you can only use arithmetic
       operations here. In particular, NO BIT-WISE OPERATIONS ARE ALLOWED.
      */
-    public void main(String[] argv) {
-	// Please give your implementation here
+    public static void main(String[] argv) {
+        int i = 1;
+        int counts =1; 
+        while (i>0) { 
+            i = i * 2; 
+            counts++; 
+        } 
+        System.out.println(counts);
+
     }
 }
