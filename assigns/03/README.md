@@ -23,4 +23,4 @@ must be a tail-call.
 Please solve the parenthesis/bracket/brace balance
 problem. For instance, "({()[({})]})" is balanced, but
 "({()[({})])}" is not. Your solution must make proper use
-of the FnList data structure.
+of the FnList data structure (as a stack).

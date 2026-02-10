@@ -8,7 +8,7 @@ public class Assign03_02 {
 	// appearing in [text]. This method should return
 	// true if and only if the parentheses/brackets/braces
 	// in [text] are balenced.
-	// Your solution must make proper use of MyStack!
+	// Your solution must make proper use of FnList (as a stack)!
 	//
     }
 
