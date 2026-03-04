@@ -19,15 +19,56 @@ public class Assign05_01 {
 //
     public static<T> FnList<T>
 	insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
-	// HX-2026-02-26: Please implement this method
-	// You can use while-loops but cannot make recursive
-	// calls.
+		FnList <T> leftRev = FnList.<T>nil(); 
+		FnList<T> right = FnList.<T>nil(); 
+		while (!FnList.isNil(xs)) { 
+			T x = xs.head(); 
+			xs = xs.tail(); 
+			while (!FnList.isNil(leftRev)&& cmp.applyAsInt(x, leftRev.head())<0) { 
+				T a = leftRev.head(); 
+				leftRev= leftRev.tail(); 
+				right= FnList.cons(a,right);
+			} 
+			leftRev =FnList.cons(x,leftRev); 
+			while (!FnList.isNil(right)) {
+				T a = right.head(); 
+				right = right.tail(); 
+				leftRev= FnList.cons(a, leftRev); 
+
+			} 
+
+		} 
+		FnList<T> res = FnList.<T>nil(); 
+		while (!FnList.isNil(leftRev)) {
+			res = FnList.cons(leftRev.head(), res); 
+			leftRev= leftRev.tail(); 
+
+		} 
+		return res; 
     }
 
     public static void main(String[] args) {
-	// Please write some testing code that applies
-	// insertSort to the following list of 1M numbers:
-	// 1, 0, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10, ..., 999999, 999998.
+		final int n=1_000_000; 
+		FnList<Integer>xs=FnList.<Integer>nil();
+		int k = n - 2; 
+		while(k>=0) { 
+			xs = FnList.cons(k,xs);
+			xs = FnList.cons(k + 1, xs); 
+			k -= 2; 
+
+		} 
+		long t0 = System.currentTimeMillis();
+		FnList<Integer>ys = insertSort(xs); 
+		long t1 = System.currentTimeMillis(); 
+		System.err.println("Sorted"+n + " items in  " +(t1-t0)+ " ms ");
+		int i =0;
+		FnList<Integer> cur= ys; 
+		while (i<10 && !FnList.isNil(cur)) { 
+			System.err.println(cur.head() + (i== 9 ? "\n": " ")); 
+			cur = cur.tail();
+			i++; 
+		}
+
     }
 
 } // end of [public class Assign05_01{...}]
