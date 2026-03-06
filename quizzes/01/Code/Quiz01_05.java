@@ -23,12 +23,13 @@ abstract public class Quiz01_05 {
 	} 
 	public static <T> 
 	FnList<T> someRevStableSort(FnList<T> xs, ToIntBiFunction<T,T> cmp){
-		final FnList<T>[] rev= new FnList[]{new FnList()};
-		xs.foritm(x->{
-			rev[0] = new FnList<T>(x,rev[0]);
-			
-		});
-		return someSort(rev[0], cmp);
+		FnList<T>[] rev= new FnList<T>();
+		while (!FnList.isNil(xs)) {
+			rev = FnList.cons(xs.head(), rev);
+			xs =xs.tail();
+		}
+	
+		return someSort(rev, cmp);
 	}
 }
 	

@@ -12,8 +12,12 @@ public class Quiz01_05_test {
             Quiz01_05.someRevStableSort(
                 xs,
                 (a,b) -> Integer.compare(a%2, b%2)
-            );
-        sorted.foritm1(x-> System.out.print(x + " "));
+            ); 
+        while (!FnList.isNil(sorted)) {
+            System.out.print(sorted.head() + " ");
+            sorted = sorted.tail();
+        }
+        
         System.out.println();
     }
 }
