@@ -14,21 +14,28 @@
  is allowed here.
 //
 */
+import Library00.FnList.*;
+import java.util.function.ToIntBiFunction;
 abstract public class Quiz01_05 {
-    public static<T>
-	FnList<T> someSort
-	(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
-	// HX-2025-10-15:
-	// This one is abstract, that is, not implemented
-    }
-    public static<T>
-	FnList<T> someRevStableSort
-	(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+    public static<T> 
+	FnList<T> someSort(FnList<T>xs , ToIntBiFunction<T,T> cmp){
+		return null;
+	} 
+	public static <T> 
+	FnList<T> someRevStableSort(FnList<T> xs, ToIntBiFunction<T,T> cmp){
+		final FnList<T>[] rev= new FnList[]{new FnList()};
+		xs.foritm1(x->{
+			rev[0] = new FnList<T>(x,rev[0]);
+			
+		});
+		return someSort(rev[0], cmp);
+	}
+}
+	
 	// HX-2025-10-15:
 	// Please implement a reverse-stable sorting method
 	// based on someSort
-    }
-}
+
 
 ////////////////////////////////////////////////////////////////////////.
 //
