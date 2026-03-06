@@ -24,7 +24,7 @@ abstract public class Quiz01_05 {
 	public static <T> 
 	FnList<T> someRevStableSort(FnList<T> xs, ToIntBiFunction<T,T> cmp){
 		final FnList<T>[] rev= new FnList[]{new FnList()};
-		xs.foritm1(x->{
+		xs.foritm(x->{
 			rev[0] = new FnList<T>(x,rev[0]);
 			
 		});
