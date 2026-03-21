@@ -11,7 +11,7 @@ public class Quiz01_00 {
     operations such as: head, tail and iteration methods
      */
     public static void main (String[] args) {
-        FnList<Integer> list =new FnList<Integer>();
+        FnList<Integer> FnList_Integer_obj =new FnList<Integer>();
 	return /*void*/;
     }
 }
