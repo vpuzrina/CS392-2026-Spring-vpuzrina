@@ -19,7 +19,21 @@ class QuickSortArray {
     }
     private static<T>
 	int arrayseg_pivot(T[] xs, int ia, int iz, ToIntBiFunction<T,T> cmp) {
-	return 0; // HX: this one needs to be FIXED!!!
+	T pvt = xs[iz];
+	int l1 = ia; int r2 = iz-1;
+	while (true) {
+	    while(true) {
+		if (cmp.applyAsInt(pvt, xs[l1]) > 0) l1 += 1; else break;
+	    }
+	    while(l1 <= r2) {
+		if (cmp.applyAsInt(pvt, xs[r2]) < 0) r2 -= 1; else break;
+	    }
+	    if (l1 >= r2) {
+		arrayseg_swap(xs, l1, iz); return l1;
+	    } else {
+		arrayseg_swap(xs, l1, r2); l1 += 1; r2 -= 1;
+	    }
+	}
     }
     private static<T>
 	void quickSort_arrayseg_rand(T[] xs, int ia, int iz, ToIntBiFunction<T,T> cmp, Random rand) {
