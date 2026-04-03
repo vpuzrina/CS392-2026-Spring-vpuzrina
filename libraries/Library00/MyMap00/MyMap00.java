@@ -28,8 +28,9 @@ public interface MyMap00<K,V> {
 //
     // HX: insert$opt returns the old V associated with the key if
     V insert$opt(K key, V val); // available, or returns the null value.
+    void insert$new(K key, V val); // the key is assumed not in the map
 //
-    V remove$raw(K key); // HX: [key] is assumed to be in the map
+    V remove$old(K key); // HX: [key] is assumed to be in the map
     V remove$exn(K key); // HX: exception if [key] is not in the map
     V remove$opt(K key); // HX: return null if [key] is not in the map
 //
