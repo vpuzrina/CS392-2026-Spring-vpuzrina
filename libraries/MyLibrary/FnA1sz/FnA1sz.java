@@ -24,6 +24,10 @@ public class FnA1sz<T> {
         return root[i];
     }
 
+    public void setAt(int i, T x) {
+        root[i] = x;
+    }
+
     public int length() {
         return root.length;
     }
