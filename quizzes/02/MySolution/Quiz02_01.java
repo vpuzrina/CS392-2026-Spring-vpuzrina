@@ -41,11 +41,72 @@ public class Quiz02_01 {
 	// This method finds the leftmost longest ascending subsequence
 	// of xs. Note that the returned list consists of the indices of
 	// the elements of the subsequence.
-	return null;
+	int n = xs.length();
+	if (n == 0) return new FnList<Integer>();
+
+	int[] bestFrom = new int[n];
+	for (int i = n - 1; i >= 0; i -= 1) {
+	    int best = 1;
+	    T xi = xs.getAt(i);
+	    for (int j = i + 1; j < n; j += 1) {
+		if (xi.compareTo(xs.getAt(j)) <= 0) {
+		    int cand = 1 + bestFrom[j];
+		    if (cand > best) best = cand;
+		}
+	    }
+	    bestFrom[i] = best;
+	}
+
+	int L = 0;
+	for (int i = 0; i < n; i += 1) {
+	    if (bestFrom[i] > L) L = bestFrom[i];
+	}
+
+	int[] picks = new int[L];
+	int k = 0;
+	int lastIndex = -1;
+	T lastValue = null;
+	int remaining = L;
+
+	while (remaining > 0) {
+	    for (int i = lastIndex + 1; i < n; i += 1) {
+		if (bestFrom[i] < remaining) continue;
+		T xi = xs.getAt(i);
+		if (lastValue != null && lastValue.compareTo(xi) > 0) continue;
+		picks[k] = i;
+		k += 1;
+		lastIndex = i;
+		lastValue = xi;
+		remaining -= 1;
+		break;
+	    }
+	}
+
+	FnList<Integer> ans = new FnList<Integer>();
+	for (int i = L - 1; i >= 0; i -= 1) {
+	    ans = new FnList<Integer>(picks[i], ans);
+	}
+	return ans;
     }
     public static void main (String[] args) {
 	// HX-2025-11-19:
 	// Please write minimal testing code for FnA1szLongestMonoSubsequence
+	Integer[] a1 = new Integer[] {1,2,1,2,3,1,2,3,4};
+	FnA1sz<Integer> xs1 = new FnA1sz<Integer>(a1);
+	FnList<Integer> r1 = FnA1szLongestMonoSubsequence(xs1);
+	r1.iforitm((i, x) -> System.out.print((i > 0 ? "," : "") + x));
+	System.out.println();
+
+	Integer[] a2 = new Integer[] {5,4,3,2};
+	FnA1sz<Integer> xs2 = new FnA1sz<Integer>(a2);
+	FnList<Integer> r2 = FnA1szLongestMonoSubsequence(xs2);
+	r2.iforitm((i, x) -> System.out.print((i > 0 ? "," : "") + x));
+	System.out.println();
+
+	// Complexity explanation:
+	// bestFrom uses two nested loops over n -> O(n^2).
+	// reconstruction scans forward at most n for each chosen index (<= n) -> O(n^2).
+	// Total O(n^2) time.
 	return /*void*/;
     }
 } // end of [public class Quiz02_01{...}]
