@@ -23,19 +23,25 @@ public class Quiz02_00 {
      */
     public static void main (String[] args) {
 	FnList<Integer> fnListObj = new FnList<Integer>();
+	FnListSort fnListSortObj = new FnListSort();
 	FnA1sz<Integer> fnA1szObj = new FnA1sz<Integer>(new Integer[] {1, 2, 3});
+	FnA1szSort fnA1szSortObj = new FnA1szSort();
 	MyStackArray<Integer> myStackArrayObj = new MyStackArray<Integer>(10);
 	MyStackList<Integer> myStackListObj = new MyStackList<Integer>();
 	MyQueueArray<Integer> myQueueArrayObj = new MyQueueArray<Integer>(10);
 	MyQueueList<Integer> myQueueListObj = new MyQueueList<Integer>();
 	FnTupl2<Integer, String> fnTupl2Obj = new FnTupl2<Integer, String>(1, "x");
+	FnTupl2SUtil fnTupl2SUtilObj = new FnTupl2SUtil();
 	FnStrn fnStrnObj = new FnStrn("hello");
+	FnStrnSUtil fnStrnSUtilObj = new FnStrnSUtil();
 	LnList<Integer> lnListObj = new LnList<Integer>();
+	LnListSort lnListSortObj = new LnListSort();
 	MyMapHashChain<String, Integer> myMapHashChainObj = new MyMapHashChain<String, Integer>();
 	MyMapHashProbe<String, Integer> myMapHashProbeObj = new MyMapHashProbe<String, Integer>();
 	MyPQueueArray<Integer> myPQueueArrayObj = new MyPQueueArray<Integer>();
 	MyBST<Integer, String> myBSTObj = new MyBST<Integer, String>();
 	LnStrm<Integer> lnStrmObj = new LnStrm<Integer>(1);
+	LnStrmSUtil lnStrmSUtilObj = new LnStrmSUtil();
 	FnGtreeSUtil fnGtreeSUtilObj = new FnGtreeSUtil();
 	return;
     }

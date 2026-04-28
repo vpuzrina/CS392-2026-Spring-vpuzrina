@@ -3,6 +3,7 @@
 // (plus up to 20 bonus points)
 // This is more of a theory problem
 // than a programming one.
+// I chose Quiz02_04 instead of Quiz02_05.
 //
 public class Quiz02_05 {
     public class RBTnode {
@@ -43,6 +44,7 @@ public class Quiz02_05 {
 	// minimal (that is, as small as possible). What is this black
 	// height? Please give a brief explanation on your implementation
 	// strategy.
+	return false;
     }
     public static void main (String[] args) {
 	// Please add minimal testing code for isRBT()
