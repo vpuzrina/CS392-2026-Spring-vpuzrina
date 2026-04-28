@@ -47,4 +47,4 @@ public abstract class MyPQueueBase<T> implements MyPQueue<T> {
 	if (!res) throw new MyPQueueFullExn(); else return;
     }
 //
-} // end of [public abstract class MyPQueueBase<T>{...}]
+}
