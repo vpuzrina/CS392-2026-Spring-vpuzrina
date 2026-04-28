@@ -1,6 +1,5 @@
-import Library00.FnList.*;
-import Library00.LnList.*;
 import Library00.FnTuple.*;
+import Library00.LnStrm.*;
 import Library00.MyMap00.*;
 
 public class Assign08_02<V>
@@ -43,6 +42,15 @@ public class Assign08_02<V>
         return del;
 
     }
+    private LnStrm<FnTupl2<String, V>> keyvalFromIndex(int i) {
+        if (i >= table.length) return new LnStrm<FnTupl2<String, V>>();
+        FnTupl2<String, V> kv = table[i];
+        LnStrm<FnTupl2<String, V>> rest = keyvalFromIndex(i + 1);
+        if (kv == null || kv.sub0 == DEL) return rest;
+        return new LnStrm<FnTupl2<String, V>>(
+            () -> new LnStcn<FnTupl2<String, V>>(kv, rest)
+        );
+    }
     public int size() {
         return size;
     }
@@ -53,15 +61,15 @@ public class Assign08_02<V>
     public boolean isEmpty(){
         return size == 0;
     }
-    public Library00.LnStrm.LnStrm<FnTupl2<String, V>> keyval_strmize(){
-        return null;
+    public LnStrm<FnTupl2<String, V>> keyval_strmize(){
+        return keyvalFromIndex(0);
     }
     public V search$old(String key) {
         return search$opt(key);
     }
     public V search$exn(String key) {
         V v = search$opt(key);
-        if (v == null) throw new RuntimeException("search$exn");
+        if (v == null) throw new MyMap00NoKeyExn();
         return v;
     }
     public V search$opt(String key) {
@@ -70,7 +78,7 @@ public class Assign08_02<V>
     }
     public V insert$opt(String key, V val) {
         int i= probe(key);
-        if (i < 0) return null;
+        if (i < 0) throw new MyMap00FullExn();
         FnTupl2<String, V> kv = table[i];
         if (kv !=null && kv.sub0 != DEL && kv.sub0.equals(key)) {
             V old = kv.sub1;
@@ -83,6 +91,7 @@ public class Assign08_02<V>
     }
     public void insert$new(String key, V val) {
         int i = probe(key);
+        if (i < 0) throw new MyMap00FullExn();
         table[i] = new FnTupl2<String, V>(key, val);
         size +=1;
     }
@@ -91,7 +100,7 @@ public class Assign08_02<V>
     }
     public V remove$exn(String key) {
         V v = remove$opt(key);
-        if (v == null) throw new RuntimeException("remove$exn");
+        if (v == null) throw new MyMap00NoKeyExn();
         return v;
     }
     public V remove$opt(String key) {
