@@ -2,7 +2,7 @@
 // HX-2026-04-09: 50 points
 // Doubly linked binary search tree (insert / remove)
 //
-public class Quiz09_01 {
+public class Assign09_01 {
     Node root = null;
 
     public class Node {
