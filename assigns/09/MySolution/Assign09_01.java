@@ -97,7 +97,7 @@ public class Assign09_01 {
         inorderCollect(n.rchild, buf, ix);
     }
 
-    private static void assertSorted(Quiz09_01 t, int[] expectedKeysInOrder) {
+    private static void assertSorted(Assign09_01 t, int[] expectedKeysInOrder) {
         int n = nodeCount(t.root);
         if (n != expectedKeysInOrder.length) throw new AssertionError("size mismatch");
         int[] buf = new int[n];
@@ -108,7 +108,7 @@ public class Assign09_01 {
         }
     }
 
-    private static void assertSizes(Quiz09_01 t) {
+    private static void assertSizes(Assign09_01 t) {
         checkSizes(t.root);
     }
 
@@ -122,7 +122,7 @@ public class Assign09_01 {
     }
 
     public static void main(String[] args) {
-        Quiz09_01 t = new Quiz09_01();
+        Assign09_01 t = new Assign09_01();
         System.out.println(t.insert(5));
         System.out.println(t.insert(3));
         System.out.println(t.insert(7));
@@ -130,7 +130,7 @@ public class Assign09_01 {
         System.out.println(t.insert(5));
         System.out.println(t.insert(3));
 
-        Quiz09_01 t2 = new Quiz09_01();
+        Assign09_01 t2 = new Assign09_01();
         int[] vals = {5, 3, 7, 2, 4, 6, 8};
         for (int v : vals) t2.insert(v);
         assertSorted(t2, new int[] {2, 3, 4, 5, 6, 7, 8});
@@ -148,7 +148,7 @@ public class Assign09_01 {
         assertSorted(t2, new int[] {2, 4, 6, 8});
         assertSizes(t2);
 
-        Quiz09_01 t3 = new Quiz09_01();
+        Assign09_01 t3 = new Assign09_01();
         for (int i = 1; i <= 10; i++) t3.insert(i);
         for (int i = 1; i <= 10; i++) {
             if (!t3.remove(i)) throw new AssertionError("remove " + i);
@@ -156,11 +156,11 @@ public class Assign09_01 {
         }
         if (t3.root != null) throw new AssertionError("expected empty");
 
-        Quiz09_01 t4 = new Quiz09_01();
+        Assign09_01 t4 = new Assign09_01();
         t4.insert(42);
         t4.remove(42);
         if (t4.root != null) throw new AssertionError("single remove");
 
-        System.out.println("Quiz09_01 checks ok");
+        System.out.println("Assign09_01 checks ok");
     }
 }
