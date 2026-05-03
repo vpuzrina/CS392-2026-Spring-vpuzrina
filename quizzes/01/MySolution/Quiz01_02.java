@@ -36,24 +36,41 @@ public class Quiz01_02 {
         merge(A, tmp, lo, mid, hi);
     }
 
-    private static boolean contains(Integer[] A, int key) {
+    private static int lowerBound(Integer[] A, int key) {
         int lo = 0;
-        int hi = A.length - 1;
-        while (lo <= hi) {
+        int hi = A.length;
+        while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
-            if (A[mid] == key) return true;
             if (A[mid] < key) {
                 lo = mid + 1;
             } else {
-                hi = mid - 1;
+                hi = mid;
             }
         }
-        return false;
+        return lo;
+    }
+
+    private static int upperBound(Integer[] A, int key) {
+        int lo = 0;
+        int hi = A.length;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (A[mid] <= key) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo;
+    }
+
+    private static int countOccurrences(Integer[] A, int key) {
+        return upperBound(A, key) - lowerBound(A, key);
     }
 
     public static boolean solve_3prod(Integer[] A) {
         int n = A.length;
-        if (n == 0) return false;
+        if (n < 3) return false;
 
         Integer[] B = new Integer[n];
         for (int i = 0; i < n; i += 1) {
@@ -62,10 +79,16 @@ public class Quiz01_02 {
         Integer[] tmp = new Integer[n];
         mergeSort(B, tmp, 0, n - 1);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int prod = A[i] * A[j];
-                if (contains(B, prod)) return true;
+        for (int i = 0; i < n; i += 1) {
+            for (int j = i + 1; j < n; j += 1) {
+                long prodL = (long) A[i] * (long) A[j];
+                if (prodL < Integer.MIN_VALUE || prodL > Integer.MAX_VALUE) continue;
+                int prod = (int) prodL;
+                int total = countOccurrences(B, prod);
+                int used = 0;
+                if (A[i] == prod) used += 1;
+                if (A[j] == prod) used += 1;
+                if (total - used >= 1) return true;
             }
         }
         return false;
@@ -77,5 +100,9 @@ public class Quiz01_02 {
         System.out.println(solve_3prod(new Integer[] {4, 7, 3}));
         System.out.println(solve_3prod(new Integer[] {-1, -2, 3}));
         System.out.println(solve_3prod(new Integer[] {1, -2, 3}));
+        System.out.println(solve_3prod(new Integer[] {2, 3, 6}));
+        System.out.println(solve_3prod(new Integer[] {1, 1, 1}));
+        System.out.println(solve_3prod(new Integer[] {2, 5, 4, 10, 3}));
+        System.out.println(solve_3prod(new Integer[] {-2, -3, 6, 1}));
     }
 }

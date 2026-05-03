@@ -1,27 +1,23 @@
-//
-// HX: 20 points
-//
-
 import MyLibrary.FnA1sz.*;
 
 public class Quiz01_01 {
     public static
     <T extends Comparable<T>>
     int FnA1szBinarySearch(FnA1sz<T> A, T key) {
-        int lo = 0;
-        int hi = A.length() - 1;
+        int n = A.length();
+        int lo = 0, hi = n - 1;
+        int ans = -1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
             T v = A.getAt(mid);
-            int c = v.compareTo(key);
-            if (c == 0) return mid;
-            if (c < 0) {
+            if (key.compareTo(v) >= 0) {
+                ans = mid;
                 lo = mid + 1;
             } else {
                 hi = mid - 1;
             }
         }
-        return -1;
+        return ans;
     }
 
     public static void main(String[] args) {

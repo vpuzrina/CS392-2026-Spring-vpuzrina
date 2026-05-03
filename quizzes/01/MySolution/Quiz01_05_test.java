@@ -1,6 +1,3 @@
-//
-// HX: For testing Quiz01_05
-//
 import MyLibrary.FnList.*;
 
 public class Quiz01_05_test {

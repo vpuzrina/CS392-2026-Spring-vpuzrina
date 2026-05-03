@@ -1,6 +1,3 @@
-//
-// HX: 30 points
-//
 import MyLibrary.FnList.*;
 import java.util.function.ToIntBiFunction;
 
@@ -40,31 +37,37 @@ public class Quiz01_05 {
         }
     }
 
-    public static <T>
-    FnList<T> someRevStableSort(FnList<T> xs, ToIntBiFunction<T, T> cmp) {
-        FnList<Decor<T>> decorated = new FnList<Decor<T>>();
+    private static <T> FnList<Decor<T>> decorate(FnList<T> xs) {
+        FnList<Decor<T>> rev = new FnList<Decor<T>>();
         int idx = 0;
         FnList<T> it = xs;
         while (!it.nilq()) {
-            decorated = new FnList<Decor<T>>(new Decor<T>(it.hd(), idx), decorated);
+            rev = new FnList<Decor<T>>(new Decor<T>(it.hd(), idx), rev);
             it = it.tl();
             idx += 1;
         }
+        return reverse(rev);
+    }
 
-        FnList<Decor<T>> sortedDecor = someSort(
-            decorated,
+    private static <T> FnList<T> undecorate(FnList<Decor<T>> ds) {
+        FnList<T> rev = new FnList<T>();
+        while (!ds.nilq()) {
+            rev = new FnList<T>(ds.hd().item, rev);
+            ds = ds.tl();
+        }
+        return reverse(rev);
+    }
+
+    public static <T>
+    FnList<T> someRevStableSort(FnList<T> xs, ToIntBiFunction<T, T> cmp) {
+        FnList<Decor<T>> decorated = decorate(xs);
+        ToIntBiFunction<Decor<T>, Decor<T>> strictCmp =
             (a, b) -> {
                 int c = cmp.applyAsInt(a.item, b.item);
                 if (c != 0) return c;
                 return Integer.compare(b.idx, a.idx);
-            }
-        );
-
-        FnList<T> outRev = new FnList<T>();
-        while (!sortedDecor.nilq()) {
-            outRev = new FnList<T>(sortedDecor.hd().item, outRev);
-            sortedDecor = sortedDecor.tl();
-        }
-        return reverse(outRev);
+            };
+        FnList<Decor<T>> sortedDecor = someSort(decorated, strictCmp);
+        return undecorate(sortedDecor);
     }
 }

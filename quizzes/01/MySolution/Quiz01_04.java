@@ -1,6 +1,3 @@
-//
-// HX: 50 points
-//
 public class Quiz01_04 {
     public static
     <T extends Comparable<T>>
@@ -12,6 +9,7 @@ public class Quiz01_04 {
         LnList<T> sorted = xs;
         xs = sorted.unlink();
         LnList<T> sortedLast = sorted;
+        LnList<T> sortedSecondLast = null;
 
         while (xs.consq1()) {
             LnList<T> xnode = xs;
@@ -19,13 +17,26 @@ public class Quiz01_04 {
 
             if (xnode.hd1().compareTo(sortedLast.hd1()) >= 0) {
                 sortedLast.link(xnode);
+                sortedSecondLast = sortedLast;
                 sortedLast = xnode;
+                continue;
+            }
+
+            if (sortedSecondLast != null
+                && xnode.hd1().compareTo(sortedSecondLast.hd1()) >= 0) {
+                LnList<T> suffix = sortedSecondLast.unlink();
+                sortedSecondLast.link(xnode);
+                xnode.link(suffix);
+                sortedSecondLast = xnode;
                 continue;
             }
 
             if (xnode.hd1().compareTo(sorted.hd1()) < 0) {
                 xnode.link(sorted);
                 sorted = xnode;
+                if (sortedSecondLast == null) {
+                    sortedSecondLast = sorted;
+                }
                 continue;
             }
 

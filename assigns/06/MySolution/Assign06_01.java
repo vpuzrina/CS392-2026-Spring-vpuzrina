@@ -1,6 +1,3 @@
-/*
- *  Array-based Quicksort
- */
 import java.util.function.ToIntBiFunction;
 
 public class Assign06_01 {
@@ -95,17 +92,22 @@ public class Assign06_01 {
     }
 
     private static void runTest(String name, Integer[] A) {
+        long t0 = System.currentTimeMillis();
         arrayQuickSort(A, Integer::compare);
+        long t1 = System.currentTimeMillis();
         boolean ok = isSorted(A, Integer::compare);
-        System.out.println(name + ": " + (ok ? "PASS" : "FAIL"));
+        System.out.println(name + " (n=" + A.length + "): " + (ok ? "PASS" : "FAIL") + " in " + (t1 - t0) + " ms");
     }
 
     public static void main(String[] args) {
+        runTest("array of 1M zeros", makeAllEqualArray(1_000_000, 0));
         runTest("random numbers", makePseudoRandomArray(1000));
         runTest("already sorted array", makeSortedArray(1000));
         runTest("reverse sorted array", makeReverseSortedArray(1000));
         runTest("array with duplicates", makeDuplicateArray());
-        runTest("array with all equal values", makeAllEqualArray(1000, 0));
+        runTest("array with all equal values (small)", makeAllEqualArray(1000, 0));
         runTest("large array with many equal values", makeLargeManyEqualArray(20000));
+        runTest("random numbers (1M)", makePseudoRandomArray(1_000_000));
+        runTest("array with all 7s (1M)", makeAllEqualArray(1_000_000, 7));
     }
 }
