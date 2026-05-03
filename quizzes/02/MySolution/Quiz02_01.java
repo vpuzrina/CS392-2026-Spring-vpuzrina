@@ -1,6 +1,10 @@
 import Library00.FnList.*;
 import Library00.FnA1sz.*;
 
+// Complexity: O(n^2) time.
+// fillBestFrom recurses over n elements; each call invokes maxFollowers
+// which scans the suffix in O(n). DP fill is therefore O(n^2).
+// reconstruct combined with pickLeftmost also performs at most O(n^2) work.
 public class Quiz02_01 {
     public static
     <T extends Comparable<T>>

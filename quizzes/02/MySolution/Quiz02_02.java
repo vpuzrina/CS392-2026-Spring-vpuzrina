@@ -1,32 +1,33 @@
+import Library00.FnA1sz.*;
+import MyLibrary.FnList.FnList;
+import MyLibrary.FnList.FnListSort;
+
 public class Quiz02_02 {
     public static
     <T extends Comparable<T>>
     void sort1000WithNoRecursion(T[] A) {
-        for (int i = 1; i < A.length; i += 1) {
-            T key = A[i];
-            int j = i - 1;
-            while (j >= 0 && A[j].compareTo(key) > 0) {
-                A[j + 1] = A[j];
-                j -= 1;
-            }
-            A[j + 1] = key;
-        }
+        FnA1sz<T> wrap = new FnA1sz<T>(A);
+        FnList<T> list = FnA1szSUtil.<T, FnList<T>>rfolditm(
+            wrap,
+            new FnList<T>(),
+            (x, acc) -> new FnList<T>(x, acc)
+        );
+        FnList<T> sorted = FnListSort.insertSort(list);
+        int[] idx = new int[]{0};
+        sorted.foritm(x -> { A[idx[0]] = x; idx[0] += 1; });
     }
 
     private static <T extends Comparable<T>>
     boolean isSorted(T[] A) {
-        for (int i = 1; i < A.length; i += 1) {
-            if (A[i - 1].compareTo(A[i]) > 0) return false;
-        }
-        return true;
+        return new FnA1sz<T>(A).iforall((i, x) -> i == 0 || A[i - 1].compareTo(x) <= 0);
     }
 
     private static <T>
     void printArray(T[] A) {
-        for (int i = 0; i < A.length; i += 1) {
+        new FnA1sz<T>(A).iforitm((i, x) -> {
             if (i > 0) System.out.print(" ");
-            System.out.print(A[i]);
-        }
+            System.out.print(x);
+        });
         System.out.println();
     }
 
@@ -53,10 +54,9 @@ public class Quiz02_02 {
 
         final int n = 1_000_000;
         Integer[] big = new Integer[n];
-        for (int k = 0; k < n; k += 2) {
-            big[k] = k + 1;
-            if (k + 1 < n) big[k + 1] = k;
-        }
+        new FnA1sz<Integer>(big).iforitm((i, x) -> {
+            big[i] = (i % 2 == 0) ? (i + 1) : (i - 1);
+        });
         long t0 = System.currentTimeMillis();
         sort1000WithNoRecursion(big);
         long t1 = System.currentTimeMillis();
