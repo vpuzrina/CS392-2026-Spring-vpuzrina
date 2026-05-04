@@ -68,6 +68,7 @@ public class Quiz01_02 {
         return upperBound(A, key) - lowerBound(A, key);
     }
 
+    // Complexity: O(n^2 log n) time, O(n) space
     public static boolean solve_3prod(Integer[] A) {
         int n = A.length;
         if (n < 3) return false;
